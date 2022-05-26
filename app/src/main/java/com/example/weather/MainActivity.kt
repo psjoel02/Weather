@@ -56,7 +56,6 @@ class MainActivity(var arrList: MutableList<String>? = null, private var weather
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         //fullscreen
-        displayCity = findViewById(R.id.currentCity)
         feelsTemp = findViewById(R.id.feelsLike)
         dateTime = findViewById(R.id.dateTime)
         searchLayout = findViewById(R.id.searchLayout)
@@ -88,12 +87,22 @@ class MainActivity(var arrList: MutableList<String>? = null, private var weather
                 if(location != null){
                     cityName = getCityName(location.longitude, location.latitude)
                     getWeatherInfo(cityName!!)
+                    //automatically use location to find weather
                 }
                 else{
-                    cityName = "Dallas"
-                    getWeatherInfo(cityName!!)
+                    //if location is unknown, use last entered city name
+                    val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
+                    var city: String? = sharedPrefs.getString("cityName", "Dallas")
+                    try{
+                        cityName = city
+                        searchEdit?.setText(city)
+                        getWeatherInfo(cityName!!)
+                    }catch(e: Exception){
+                        //if last entered city is unknown, set default weather to Dallas
+                        cityName = "Dallas"
+                        getWeatherInfo(cityName!!)
+                    }
                 }
-                // Got last known location. In some rare situations this can be null.
             }
 
         searchIcon?.setOnClickListener {
@@ -102,7 +111,7 @@ class MainActivity(var arrList: MutableList<String>? = null, private var weather
                 Toast.makeText(this, "Enter city name", Toast.LENGTH_SHORT).show()
             }
             else{
-                displayCity?.text = cityName
+                //displayCity?.text = cityName
                 getWeatherInfo(city)
             }
         }
@@ -147,7 +156,10 @@ class MainActivity(var arrList: MutableList<String>? = null, private var weather
         //replace unit group to metric outside of US
         var url: String = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/$city?unitGroup=us&iconSet=icons2&key=DR7SE842V9TC3UK6854QN4YP7&contentType=json"
 
-        displayCity?.text = city
+        //displayCity?.text = city
+        val mPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val mEditor: SharedPreferences.Editor = mPrefs.edit()
+        mEditor.putString("cityName", city).apply()
 
         var rq: RequestQueue = Volley.newRequestQueue(this)
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
@@ -157,7 +169,7 @@ class MainActivity(var arrList: MutableList<String>? = null, private var weather
                 try{
                     var feels: String = response.getJSONObject("currentConditions").getString("feelslike")
                     var icon: String = response.getJSONObject("currentConditions").getString("icon")
-                    var df = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss")
+                    var df = SimpleDateFormat("EEE, MMM d yyyy H:mm")
                     var date = df.format(Calendar.getInstance().time)
                     when(icon){
                         "snow" ->  Picasso.get().load(R.drawable.snow).into(weatherImg)
@@ -181,7 +193,7 @@ class MainActivity(var arrList: MutableList<String>? = null, private var weather
                     //add alerts using response.getJSONObject("alerts").getString("event, headline, and description")
                     weather?.text = response.getJSONObject("currentConditions").getString("conditions")
                     currentTemp?.text = response.getJSONObject("currentConditions").getString("temp").plus("°F")
-                    feelsTemp?.text = "feels like ".plus(feels).plus("°F")
+                    feelsTemp?.text = "Feels like ".plus(feels).plus("°F")
                     dateTime?.text = date
 
                     var forecastObj: JSONObject = response.getJSONObject("days")
@@ -196,14 +208,10 @@ class MainActivity(var arrList: MutableList<String>? = null, private var weather
                     }
                     //wRVA?.notifyDataSetChanged()
 
-                    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-                    val editor: SharedPreferences.Editor = preferences.edit()
-                    editor.putString("displayCity", city)
-                    editor.apply()
-                    editor.commit()
                 }catch(e: JSONException){
                     e.printStackTrace()
                 }
+                Toast.makeText(this, city, Toast.LENGTH_SHORT).show()
             },
             { error ->
                 Toast.makeText(this, "Please enter a valid city name", Toast.LENGTH_SHORT).show()

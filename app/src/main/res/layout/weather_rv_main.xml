@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="120dp"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
@@ -22,7 +22,8 @@
             android:padding="4dp"
             android:text="12AM"
             android:textAlignment="center"
-            android:textColor="@color/white">
+            android:textColor="@color/white"
+            android:fontFamily="@font/rubik_bold">
 
         </TextView>
 
@@ -31,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/timeRV"
+            android:fontFamily="@font/rubik_bold"
             android:gravity="center"
             android:text="70 F"
             android:textAlignment="center"
@@ -70,7 +72,8 @@
             android:padding="3dp"
             android:text="10 mph"
             android:textAlignment="center"
-            android:textColor="@color/white">
+            android:textColor="@color/white"
+            android:fontFamily="@font/rubik_bold">
 
         </TextView>
 

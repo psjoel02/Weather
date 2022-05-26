@@ -30,15 +30,7 @@
 
         </ImageView>
 
-        <TextView
-            android:id="@+id/currentCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Current City"
-            android:textSize="30sp" />
+
         <!--android:layout_below="@id/currentCity"-->
 
         <com.google.android.material.textfield.TextInputLayout
@@ -60,7 +52,7 @@
                 android:id="@+id/searchEdit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/rubik_bold"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:singleLine="true"
@@ -88,7 +80,7 @@
             android:layout_below="@id/searchLayout"
             android:layout_marginStart="30dp"
             android:layout_marginTop="140dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/rubik_bold"
             android:gravity="center"
             android:padding="5dp"
             android:text="100"
@@ -117,7 +109,7 @@
             android:layout_above="@id/currentTemp"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="-130dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/rubik_bold"
             android:text="Date, Time">
 
         </TextView>
@@ -129,7 +121,7 @@
             android:layout_above="@id/currentTemp"
             android:layout_marginStart="50dp"
             android:layout_marginBottom="-160dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/rubik_bold"
             android:text="Feels like temp">
 
         </TextView>
@@ -140,7 +132,7 @@
             android:layout_height="100dp"
             android:layout_below="@id/weatherImg"
             android:layout_marginStart="270dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/rubik_bold"
             android:gravity="center"
             android:text="Weather"
             android:textSize="15sp">
@@ -152,6 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/currentTemp"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
