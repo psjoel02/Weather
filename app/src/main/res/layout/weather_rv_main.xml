@@ -18,12 +18,12 @@
             android:id="@+id/timeRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans"
             android:gravity="center"
             android:padding="4dp"
             android:text="12AM"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:fontFamily="@font/rubik_bold">
+            android:textColor="@color/black">
 
         </TextView>
 
@@ -32,11 +32,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/timeRV"
-            android:fontFamily="@font/rubik_bold"
+            android:fontFamily="@font/opensans"
             android:gravity="center"
             android:text="70 F"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp">
 
         </TextView>
@@ -57,25 +57,6 @@
             android:src="@mipmap/ic_launcher">
 
         </ImageView>
-
-        <TextView
-            android:id="@+id/windRV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgRV"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="10 mph"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:fontFamily="@font/rubik_bold">
-
-        </TextView>
 
 
 

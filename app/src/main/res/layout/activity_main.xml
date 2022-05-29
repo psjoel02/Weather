@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/gradient">
+    tools:context=".MainActivity">
     <!--<ProgressBar
         android:id="@+id/loadingPB"
         android:layout_width="wrap_content"
@@ -26,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/def_back">
+            android:src="@drawable/cloudy_bg">
 
         </ImageView>
 
@@ -52,11 +51,12 @@
                 android:id="@+id/searchEdit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/rubik_bold"
+                android:fontFamily="@font/opensans"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textSize="14sp">
+                android:textSize="14sp"
+                android:imeOptions="actionSend">
 
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
@@ -75,17 +75,49 @@
 
         <TextView
             android:id="@+id/currentTemp"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_below="@id/searchLayout"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="140dp"
-            android:fontFamily="@font/rubik_bold"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/opensans"
             android:gravity="center"
             android:padding="5dp"
-            android:text="100"
+            android:text="100°F"
             android:textColor="@color/white"
-            android:textSize="40sp">
+            android:textSize="45sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/highTemp"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/dateTime"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="↑100°F"
+            android:textColor="@color/white"
+            >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/lowTemp"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/dateTime"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="↓50°F"
+            android:textColor="@color/white">
+
 
         </TextView>
 
@@ -95,8 +127,8 @@
             android:layout_height="80dp"
             android:layout_below="@id/searchLayout"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="70dp"
             android:layout_toEndOf="@id/currentTemp"
             android:src="@mipmap/ic_launcher">
 
@@ -107,10 +139,13 @@
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_above="@id/currentTemp"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="-130dp"
-            android:fontFamily="@font/rubik_bold"
-            android:text="Date, Time">
+            android:layout_centerInParent="false"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="-50dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Date, Time"
+            android:textColor="@color/white">
 
         </TextView>
 
@@ -118,11 +153,26 @@
             android:id="@+id/feelsLike"
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:layout_above="@id/currentTemp"
-            android:layout_marginStart="50dp"
-            android:layout_marginBottom="-160dp"
-            android:fontFamily="@font/rubik_bold"
-            android:text="Feels like temp">
+            android:layout_below="@id/dateTime"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="150dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Feels like temp"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/feelsLike"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Feels like temp"
+            android:textColor="@color/white">
 
         </TextView>
 
@@ -132,9 +182,11 @@
             android:layout_height="100dp"
             android:layout_below="@id/weatherImg"
             android:layout_marginStart="270dp"
-            android:fontFamily="@font/rubik_bold"
+            android:layout_marginTop="-25dp"
+            android:fontFamily="@font/opensans"
             android:gravity="center"
             android:text="Weather"
+            android:textColor="@color/white"
             android:textSize="15sp">
 
         </TextView>
@@ -144,7 +196,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/currentTemp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="200dp"
             android:orientation="horizontal"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
