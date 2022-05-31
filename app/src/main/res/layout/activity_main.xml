@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,196 +15,834 @@
 
     </ProgressBar>-->
 
-    <RelativeLayout
-        android:id="@+id/rlMain"
+    <ImageView
+        android:id="@+id/backIV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:scaleType="centerCrop"
+        android:src="@drawable/cloudy_bg">
 
-        <ImageView
-            android:id="@+id/backIV"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/cloudy_bg">
-
-        </ImageView>
+    </ImageView>
 
 
-        <!--android:layout_below="@id/currentCity"-->
+            <!--android:layout_below="@id/currentCity"-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/searchLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
-            android:width="8dp"
-            android:background="@android:color/transparent"
-            android:hint="Search cities"
-            android:padding="5dp"
-            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
-            app:boxStrokeColor="@android:color/transparent"
-            tools:ignore="HardcodedText">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/searchLayout"
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:width="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Search cities"
+                    android:padding="5dp"
+                    app:boxStrokeColor="@android:color/transparent"
+                    tools:ignore="HardcodedText">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchEdit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/searchEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/opensans"
+                        android:imeOptions="actionSend"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="14sp">
+
+                    </com.google.android.material.textfield.TextInputEditText>
+
+                    <ImageView
+                        android:id="@+id/search_Icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="320dp"
+                        android:layout_marginTop="-40dp"
+                        android:src="@drawable/ic_baseline_search_24">
+
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/search_Icon_dark"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="320dp"
+                        android:layout_marginTop="-30dp"
+                        android:src="@drawable/ic_baseline_search_24_dark">
+                    </ImageView>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/currentTemp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/opensans"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="100°F"
+        android:textColor="@color/white"
+        android:textSize="45sp">
+
+    </TextView>
+
+
+            <TextView
+                android:id="@+id/highTemp"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/currentTemp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="-50dp"
                 android:fontFamily="@font/opensans"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textSize="14sp"
-                android:imeOptions="actionSend">
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="↑100°F"
+                android:textColor="@color/white">
 
-            </com.google.android.material.textfield.TextInputEditText>
-        </com.google.android.material.textfield.TextInputLayout>
+            </TextView>
 
-        <ImageView
-            android:id="@+id/search_Icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="-60dp"
-            android:layout_marginTop="35dp"
-            android:layout_toEndOf="@id/searchLayout"
-            android:src="@drawable/ic_baseline_search_24">
+            <TextView
+                android:id="@+id/lowTemp"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/currentTemp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="-50dp"
+                android:fontFamily="@font/opensans"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="↓50°F"
+                android:textColor="@color/white">
 
-        </ImageView>
 
+            </TextView>
+
+            <ImageView
+                android:id="@+id/weatherImg"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="110dp"
+                android:layout_toEndOf="@id/currentTemp"
+                android:src="@mipmap/ic_launcher">
+
+            </ImageView>
+
+    <TextView
+        android:id="@+id/dateTime"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_above="@id/currentTemp"
+        android:layout_marginStart="-5dp"
+        android:layout_marginBottom="-130dp"
+        android:fontFamily="@font/opensans"
+        android:gravity="center"
+        android:text="Date, Time"
+        android:textColor="@color/black">
+
+    </TextView>
+
+            <TextView
+                android:id="@+id/feelsLike"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/currentTemp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="-10dp"
+                android:fontFamily="@font/opensans"
+                android:gravity="center"
+                android:text="Feels like temp"
+                android:textColor="@color/white">
+
+            </TextView>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/feelsLike"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/opensans"
+        android:gravity="center"
+        android:text="Weather Description"
+        android:textColor="@color/white">
+
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/hourly"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="590dp"
+        android:fontFamily="@font/opensans"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Hourly Forecast"
+        android:textColor="@color/white">
+
+    </TextView>
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/weatherImg"
+                android:layout_marginStart="270dp"
+                android:layout_marginTop="-25dp"
+                android:fontFamily="@font/opensans"
+                android:gravity="center"
+                android:text="Weather"
+                android:textColor="@color/white"
+                android:textSize="15sp">
+
+            </TextView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description">
 
         <TextView
-            android:id="@+id/currentTemp"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_below="@id/searchLayout"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
+            android:id="@+id/firstDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="33dp"
             android:fontFamily="@font/opensans"
             android:gravity="center"
-            android:padding="5dp"
-            android:text="100°F"
-            android:textColor="@color/white"
-            android:textSize="45sp">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/highTemp"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/dateTime"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/opensans"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="↑100°F"
-            android:textColor="@color/white"
-            >
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/lowTemp"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/dateTime"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/opensans"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="↓50°F"
+            android:text="Mon"
             android:textColor="@color/white">
 
-
         </TextView>
 
         <ImageView
-            android:id="@+id/weatherImg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_below="@id/searchLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="90dp"
-            android:layout_marginTop="70dp"
-            android:layout_toEndOf="@id/currentTemp"
+            android:id="@+id/firstImg"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/firstDay"
+            android:layout_marginLeft="37dp"
+            android:foregroundGravity="center"
             android:src="@mipmap/ic_launcher">
 
         </ImageView>
 
         <TextView
-            android:id="@+id/dateTime"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_above="@id/currentTemp"
-            android:layout_centerInParent="false"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="-50dp"
-            android:fontFamily="@font/opensans"
-            android:gravity="center"
-            android:text="Date, Time"
-            android:textColor="@color/white">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/feelsLike"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/dateTime"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="150dp"
-            android:fontFamily="@font/opensans"
-            android:gravity="center"
-            android:text="Feels like temp"
-            android:textColor="@color/white">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/feelsLike"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/opensans"
-            android:gravity="center"
-            android:text="Feels like temp"
-            android:textColor="@color/white">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/desc"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/weatherImg"
-            android:layout_marginStart="270dp"
-            android:layout_marginTop="-25dp"
-            android:fontFamily="@font/opensans"
-            android:gravity="center"
-            android:text="Weather"
-            android:textColor="@color/white"
-            android:textSize="15sp">
-
-        </TextView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/weatherRV"
+            android:id="@+id/firstHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/currentTemp"
-            android:layout_marginTop="200dp"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+            android:layout_below="@id/firstImg"
+            android:layout_marginLeft="40dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="90°"
+            android:textColor="@color/white">
 
-        </androidx.recyclerview.widget.RecyclerView>
+        </TextView>
+
+        <TextView
+            android:id="@+id/firstLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstHigh"
+            android:layout_marginLeft="40dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="70°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/secondDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Tue"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/secondImg"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/secondDay"
+            android:layout_marginLeft="100dp"
+            android:foregroundGravity="center"
+            android:src="@mipmap/ic_launcher">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/secondHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstImg"
+            android:layout_marginLeft="105dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="90°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/secondLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstHigh"
+            android:layout_marginLeft="105dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="70°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/thirdDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Wed"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/thirdImg"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/thirdDay"
+            android:layout_marginLeft="165dp"
+            android:foregroundGravity="center"
+            android:src="@mipmap/ic_launcher">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/thirdHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstImg"
+            android:layout_marginLeft="170dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="90°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/thirdLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/thirdHigh"
+            android:layout_marginLeft="170dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="70°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/fourthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="225dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Thu"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/fourthImg"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/fourthDay"
+            android:layout_marginLeft="225dp"
+            android:foregroundGravity="center"
+            android:src="@mipmap/ic_launcher">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/fourthHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstImg"
+            android:layout_marginLeft="230dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="90°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/fourthLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fourthHigh"
+            android:layout_marginLeft="230dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="70°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/fifthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="286dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Fri"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/fifthImg"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/fifthDay"
+            android:layout_marginLeft="285dp"
+            android:foregroundGravity="center"
+            android:src="@mipmap/ic_launcher">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/fifthHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstImg"
+            android:layout_marginLeft="290dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="90°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/fifthLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fourthHigh"
+            android:layout_marginLeft="290dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="70°"
+            android:textColor="@color/white">
+        </TextView>
+
+        <TextView
+            android:id="@+id/sixthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="345dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="Sat"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/sixthImg"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_below="@id/sixthDay"
+            android:layout_marginLeft="345dp"
+            android:foregroundGravity="center"
+            android:src="@mipmap/ic_launcher">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/sixthHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstImg"
+            android:layout_marginLeft="350dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="90°"
+            android:textColor="@color/white">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/sixthLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fourthHigh"
+            android:layout_marginLeft="350dp"
+            android:fontFamily="@font/opensans"
+            android:gravity="center"
+            android:text="70°"
+            android:textColor="@color/white">
+        </TextView>
 
     </RelativeLayout>
 
 
-</RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weatherRV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hourly"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/currentDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/description"
+                    android:orientation="vertical"
+                    android:layout_marginTop="100dp">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/ll_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradient"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/sunriseRL"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/sunrise">
+
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/sunriseVal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="100"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp">
+
+                                </TextView>
+
+                                <TextView
+                                    android:id="@+id/sunrise"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="Sunrise"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp">
+
+                                </TextView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/sunsetRL"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/sunset">
+
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/sunsetVal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="100"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp">
+
+                                </TextView>
+
+                                <TextView
+                                    android:id="@+id/sunset"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="Sunset"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp">
+
+                                </TextView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/precipitationRL"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/precipitation">
+
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/precipitationVal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="100"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp">
+
+                                </TextView>
+
+                                <TextView
+                                    android:id="@+id/precipitation"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="Precipitation"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp">
+
+                                </TextView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </RelativeLayout>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/ll2_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:background="@drawable/gradient"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:id="@+id/humidityRL"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/humidity">
+
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/humidityVal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="100"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp">
+
+                                </TextView>
+
+                                <TextView
+                                    android:id="@+id/humidity"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="Humidity"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp">
+
+                                </TextView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/windSpeedRL"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/windspeed">
+
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/windSpeedVal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="100"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp">
+
+                                </TextView>
+
+                                <TextView
+                                    android:id="@+id/windSpeed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="Wind Speed"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp">
+
+                                </TextView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/pressureRL"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="0dp">
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:src="@drawable/pressure">
+
+                                </ImageView>
+
+                                <TextView
+                                    android:id="@+id/pressureVal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="100"
+                                    android:textColor="@color/white"
+                                    android:textSize="15dp">
+
+                                </TextView>
+
+                                <TextView
+                                    android:id="@+id/pressure"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/opensans"
+                                    android:gravity="center"
+                                    android:text="Pressure"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp">
+
+                                </TextView>
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </RelativeLayout>
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </RelativeLayout>
+

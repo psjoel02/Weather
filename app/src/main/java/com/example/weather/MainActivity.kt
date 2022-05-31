@@ -8,7 +8,6 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -33,7 +31,10 @@ import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalTime
 import java.util.*
 
 
@@ -44,7 +45,9 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
     private var currentTemp: TextView? = null; private var weather: TextView? = null
     private var highTemp: TextView? = null; private var lowTemp: TextView? = null
     private var feelsTemp: TextView? = null; private var dateTime: TextView? = null; private var description: TextView? = null
-    private var searchIcon: ImageView? = null; private var backIV: ImageView? = null
+    private var sunriseVal: TextView? = null; private var sunsetVal: TextView? = null; private var precipitationVal: TextView? = null
+    private var humidityVal: TextView? = null; private var windSpeedVal: TextView? = null; private var pressureVal: TextView? = null
+    private var searchIcon: ImageView? = null; private var backIV: ImageView? = null; private var weatherImg: ImageView? = null
     private var locationManger: LocationManager? = null
     private var loadPB: ProgressBar? = null
     private var pCode: Int = 1
@@ -54,7 +57,6 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
     private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
     lateinit var tempRV: MutableList<String>
     lateinit var imgRV: MutableList<String>
-    private var weatherImg: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,12 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
         feelsTemp = findViewById(R.id.feelsLike)
         description = findViewById(R.id.description)
         dateTime = findViewById(R.id.dateTime)
+        sunriseVal = findViewById(R.id.sunriseVal)
+        sunsetVal = findViewById(R.id.sunsetVal)
+        precipitationVal = findViewById(R.id.precipitationVal)
+        humidityVal = findViewById(R.id.humidityVal)
+        windSpeedVal = findViewById(R.id.windSpeedVal)
+        pressureVal = findViewById(R.id.pressureVal)
         searchLayout = findViewById(R.id.searchLayout)
         searchEdit = findViewById(R.id.searchEdit)
         searchIcon = findViewById(R.id.search_Icon)
@@ -124,6 +132,7 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
             else{
                 //displayCity?.text = cityName
                 getWeatherInfo(city)
+
             }
         }
 
@@ -136,6 +145,7 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
                 } else {
                     //displayCity?.text = cityName
                     getWeatherInfo(city)
+                    weatherRV?.adapter?.notifyDataSetChanged()
                 }
             }
             handled
@@ -193,8 +203,21 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
                 try{
                     val feels: String = response.getJSONObject("currentConditions").getString("feelslike")
                     val icon: String = response.getJSONObject("currentConditions").getString("icon")
-                    val df = SimpleDateFormat("MMM d, h:mm aa")
-                    val date = df.format(Calendar.getInstance().time)
+                    val datef = SimpleDateFormat("MMM d, h:mm aa")
+                    val date = datef.format(Calendar.getInstance().time)
+                    val rawRise: String = response.getJSONObject("currentConditions").getString("sunrise")
+                    val rawSet: String = response.getJSONObject("currentConditions").getString("sunset")
+                    val format: DateFormat = SimpleDateFormat("hh:mm:ss")
+                    try {
+                        val date: Date = format.parse(rawRise)
+                        val date2: Date = format.parse(rawSet)
+                        val format2 = SimpleDateFormat("h:mm a")
+                        sunriseVal?.text = format2.format(date)
+                        sunsetVal?.text = format2.format(date2)
+                    } catch (e: ParseException) {
+                        e.printStackTrace()
+                    }
+
                     loadImg(icon)
                     //based on different times of day, load different background image into backIV
                     //add alerts using response.getJSONObject("alerts").getString("event, headline, and description")
@@ -203,6 +226,10 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
                     feelsTemp?.text = "Feels like ".plus(feels).plus("°F")
                     dateTime?.text = date
                     description?.text = response.getString("description")
+                    precipitationVal?.text = response.getJSONObject("currentConditions").getString("precip").plus(" in")
+                    humidityVal?.text = response.getJSONObject("currentConditions").getString("humidity").plus("%")
+                    windSpeedVal?.text = response.getJSONObject("currentConditions").getString("windspeed").plus(" mph")
+                    pressureVal?.text = response.getJSONObject("currentConditions").getString("pressure").plus(" inHg")
 
                     val forecastDaily: JSONArray = response.getJSONArray("days")
                     val forecast0: JSONObject = forecastDaily.getJSONObject(0)
@@ -213,12 +240,14 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
 
                     for (i in 0 until forecastHourly.length()) {
                         val currentObj: JSONObject = forecastHourly.getJSONObject(i)
-                        val hrTemp: String = currentObj.getString("temp")
+                        val hrTemp: String = currentObj.getString("temp").plus("°F")
                         val hrIcon: String = currentObj.getString("icon")
+                        val hrPrecip: String = currentObj.getString("precip").plus("%")
+                        val hrWind: String = currentObj.getString("windspeed").plus("mph")
                         val converted: String = hrIcon.replace('-', '_')
                         //Log.d("icon:", hrIcon)
                         //Log.d("converted:", converted)
-                        val wRV = WeatherRV(hrTemp, resources.getIdentifier(converted, "drawable", packageName))
+                        val wRV = WeatherRV(hrTemp, resources.getIdentifier(converted, "drawable", packageName), hrPrecip, hrWind)
                         arrList?.add(wRV)
                         weatherRV?.adapter?.notifyDataSetChanged()
                     }
@@ -226,7 +255,7 @@ class MainActivity(var arrList: ArrayList<WeatherRV>? = null, private var weathe
                 }catch(e: JSONException){
                     e.printStackTrace()
                 }
-                Toast.makeText(this, city, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, city, Toast.LENGTH_SHORT).show()
             },
             { error ->
                 Toast.makeText(this, "Please enter a valid city name", Toast.LENGTH_SHORT).show()
