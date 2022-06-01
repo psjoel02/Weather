@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="tab_text_1">Today</string>
+    <string name="tab_text_2">Tomorrow</string>
+    <string name="tab_text_3">7 Days</string>
+    <string name="search_title">Enter city name here</string>
 </resources>
