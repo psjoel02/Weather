@@ -4,10 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/card_back.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/clear_night_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/cloudy_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/fog_bg.xml" value="0.1635" />
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.1635" />
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/partly_cloudy_day_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/partly_cloudy_night_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/rain_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/showers_day_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/snow_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/thunder_rain_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/thunder_showers_day_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/drawable/wind_bg.xml" value="0.1635" />
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/layout/action_bar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/layout/daily_rv_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/layout/fragment_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/layout/search.xml" value="0.253125" />
         <entry key="..\:/Users/psjoe/AndroidStudioProjects/Weather/app/src/main/res/layout/seven_days_layout.xml" value="0.25416666666666665" />

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:fontFamily="@font/opensans"
+            android:fontFamily="@font/rubik"
             android:gravity="center"
             android:text="12AM"
             android:textAlignment="center"
@@ -36,9 +36,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toEndOf="@id/imgRV"
-            android:fontFamily="@font/opensans"
+            android:fontFamily="@font/rubik"
             android:gravity="center"
-            android:text="70 F"
+            android:text="70°F"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="15sp">
@@ -48,7 +48,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:layout_toEndOf="@id/tempRV"
             android:src="@drawable/precipitation">
 
@@ -75,7 +75,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="40dp"
             android:layout_toEndOf="@id/tempRV"
-            android:fontFamily="@font/opensans"
+            android:fontFamily="@font/rubik"
             android:gravity="center"
             android:text="0%"
             android:textColor="@color/black"
@@ -90,7 +90,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_toEndOf="@id/precipRV"
-            android:fontFamily="@font/opensans"
+            android:fontFamily="@font/rubik"
             android:gravity="center"
             android:text="0 mph"
             android:textColor="@color/black"
