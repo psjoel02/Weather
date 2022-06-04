@@ -8,16 +8,18 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -33,12 +35,13 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.DateFormat
+import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherRV: RecyclerView? = null): Fragment(R.layout.today_layout) {
+open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherRV: RecyclerView? = null, var infoReceived: Boolean = false): Fragment(R.layout.today_layout) {
 
     private var searchLayout: TextInputLayout? = null
     private var searchEdit: TextInputEditText? = null
@@ -56,34 +59,6 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
     private var todayRL: RelativeLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
-        return inflater.inflate(R.layout.today_layout, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //fullscreen
-        //loadPB = findViewById(R.id.loadingPB)
-        weatherImg = view.findViewById(R.id.weatherImg)
-        highTemp = view.findViewById(R.id.highTemp)
-        lowTemp = view.findViewById(R.id.lowTemp)
-        feelsTemp = view.findViewById(R.id.feelsLike)
-        description = view.findViewById(R.id.description)
-        dateTime = view.findViewById(R.id.dateTime)
-        sunriseVal = view.findViewById(R.id.sunriseVal)
-        sunsetVal = view.findViewById(R.id.sunsetVal)
-        precipitationVal = view.findViewById(R.id.precipitationVal)
-        humidityVal = view.findViewById(R.id.humidityVal)
-        windSpeedVal = view.findViewById(R.id.windSpeedVal)
-        pressureVal = view.findViewById(R.id.pressureVal)
-        searchLayout = view.findViewById(R.id.searchLayout)
-        searchEdit = view.findViewById(R.id.searchEdit)
-        searchIcon = view.findViewById(R.id.search_Icon)
-        currentTemp = view.findViewById(R.id.currentTemp)
-        weather = view.findViewById(R.id.desc)
-        backIV = view.findViewById(R.id.backIV)
-        loadPB = view.findViewById(R.id.loadingPB)
-        todayRL = view.findViewById(R.id.todayRL)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
@@ -118,6 +93,33 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
                     }
                 }
             }
+        return inflater.inflate(R.layout.today_layout, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //fullscreen
+        weatherImg = view.findViewById(R.id.weatherImg)
+        highTemp = view.findViewById(R.id.highTemp)
+        lowTemp = view.findViewById(R.id.lowTemp)
+        feelsTemp = view.findViewById(R.id.feelsLike)
+        description = view.findViewById(R.id.description)
+        dateTime = view.findViewById(R.id.dateTime)
+        sunriseVal = view.findViewById(R.id.sunriseVal)
+        sunsetVal = view.findViewById(R.id.sunsetVal)
+        precipitationVal = view.findViewById(R.id.precipitationVal)
+        humidityVal = view.findViewById(R.id.humidityVal)
+        windSpeedVal = view.findViewById(R.id.windSpeedVal)
+        pressureVal = view.findViewById(R.id.pressureVal)
+        searchLayout = view.findViewById(R.id.searchLayout)
+        searchEdit = view.findViewById(R.id.searchEdit)
+        searchIcon = view.findViewById(R.id.search_Icon)
+        currentTemp = view.findViewById(R.id.currentTemp)
+        weather = view.findViewById(R.id.desc)
+        backIV = view.findViewById(R.id.backIV)
+        loadPB = view.findViewById(R.id.loadingPB)
+        todayRL = view.findViewById(R.id.todayRL)
+
         weatherRV = requireActivity().findViewById(R.id.weatherRV)
         weatherRV?.setHasFixedSize(true)
         arrList = arrayListOf<WeatherRV>()
@@ -204,14 +206,27 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
                 try{
                     val feels: String = response.getJSONObject("currentConditions").getString("feelslike")
                     val icon: String = response.getJSONObject("currentConditions").getString("icon")
-                    val datef = SimpleDateFormat("MMM d, h:mm aa")
-                    val date = datef.format(Calendar.getInstance().time)
                     val rawRise: String = response.getJSONObject("currentConditions").getString("sunrise")
                     val rawSet: String = response.getJSONObject("currentConditions").getString("sunset")
+                    val windSpeed: String = response.getJSONObject("currentConditions").getString("windspeed")
+                    var pressure: Double = response.getJSONObject("currentConditions").getString("pressure").toDouble()
+                    pressure /= 33.864
+
+                    val todayf = SimpleDateFormat("MMM d, h:mm aa")
+                    val currentDate = todayf.format(Calendar.getInstance().time)
+
+                    val jsonData: String = response.toString()
+                    // Use the Kotlin extension in the fragment-ktx artifact
+                    setFragmentResult("TomKey", bundleOf("key" to jsonData))
+                    setFragmentResult("SevenKey", bundleOf("key" to jsonData))
+                    //Log.d("hello world", city)
+
+                    infoReceived = true
+
                     val format: DateFormat = SimpleDateFormat("hh:mm:ss")
                     try {
-                        val date: Date = format.parse(rawRise)
-                        val date2: Date = format.parse(rawSet)
+                        val date: Date = format.parse(rawRise)!!
+                        val date2: Date = format.parse(rawSet)!!
                         val format2 = SimpleDateFormat("h:mm a")
                         sunriseVal?.text = format2.format(date)
                         sunsetVal?.text = format2.format(date2)
@@ -225,33 +240,27 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
                     weather?.text = response.getJSONObject("currentConditions").getString("conditions")
                     currentTemp?.text = response.getJSONObject("currentConditions").getString("temp").plus("°F")
                     feelsTemp?.text = "Feels like ".plus(feels).plus("°F")
-                    dateTime?.text = date
+                    dateTime?.text = currentDate
                     description?.text = response.getString("description")
                     precipitationVal?.text = response.getJSONObject("currentConditions").getString("precip").plus(" in")
                     humidityVal?.text = response.getJSONObject("currentConditions").getString("humidity").plus("%")
-                    windSpeedVal?.text = response.getJSONObject("currentConditions").getString("windspeed").plus(" mph")
-                    pressureVal?.text = response.getJSONObject("currentConditions").getString("pressure").plus(" inHg")
+                    val df = DecimalFormat("####0.0")
+                    pressureVal?.text = df.format(pressure).toString().plus(" inHg")
 
+                    if(windSpeed != "null"){
+                        windSpeedVal?.text = response.getJSONObject("currentConditions").getString("windspeed").plus(" mph")
+                    }
+                    else{
+                        windSpeedVal?.text = "0 mph"
+                    }
                     val forecastDaily: JSONArray = response.getJSONArray("days")
                     val forecast0: JSONObject = forecastDaily.getJSONObject(0)
                     highTemp?.text = "↑".plus(forecast0.getString("tempmax")).plus("°F")
                     lowTemp?.text = "↓".plus(forecast0.getString("tempmin")).plus("°F")
 
                     val forecastHourly: JSONArray = forecast0.getJSONArray("hours")
+                    loadArr(forecastHourly)
 
-                    for (i in 0 until forecastHourly.length()) {
-                        val currentObj: JSONObject = forecastHourly.getJSONObject(i)
-                        val hrTemp: String = currentObj.getString("temp").plus("°F")
-                        val hrIcon: String = currentObj.getString("icon")
-                        val hrPrecip: String = currentObj.getString("precip").plus("%")
-                        val hrWind: String = currentObj.getString("windspeed").plus("mph")
-                        val converted: String = hrIcon.replace('-', '_')
-                        //Log.d("icon:", hrIcon)
-                        //Log.d("converted:", converted)
-                        val wRV = WeatherRV(hrTemp, resources.getIdentifier(converted, "drawable", requireActivity().packageName), hrPrecip, hrWind)
-                        arrList?.add(wRV)
-                        weatherRV?.adapter?.notifyDataSetChanged()
-                    }
 
                 }catch(e: JSONException){
                     e.printStackTrace()
@@ -267,6 +276,26 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
         rq.add(jsonObjectRequest)
     }
 
+    private fun loadArr(forecastHourly: JSONArray){
+        for (i in 0 until forecastHourly.length()) {
+            val currentObj: JSONObject = forecastHourly.getJSONObject(i)
+            val hrTemp: String = currentObj.getString("temp").plus("°F")
+            val hrIcon: String = currentObj.getString("icon")
+            val hrPrecip: String = currentObj.getString("precipprob").plus("%")
+            val hrWind: String = currentObj.getString("windspeed").plus("mph")
+            val converted: String = hrIcon.replace('-', '_')
+            //Log.d("converted:", converted)
+            var wRV = WeatherRV(hrTemp, R.drawable.cloudy, hrPrecip, hrWind)
+            try{
+                wRV = WeatherRV(hrTemp, resources.getIdentifier(converted, "drawable", requireActivity().packageName), hrPrecip, hrWind)
+            }catch(e: Exception){
+                Log.d("Exception", e.toString())
+            }
+            arrList?.add(wRV)
+            weatherRV?.adapter?.notifyDataSetChanged()
+        }
+    }
+
     private fun loadImg(icon: String){
         when(icon){
             "snow" ->  {
@@ -274,11 +303,11 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
                 Picasso.get().load(R.drawable.snow_bg).into(backIV)
             }
             "snow-showers-day" -> {
-                Picasso.get().load(R.drawable.snow).into(weatherImg)
+                Picasso.get().load(R.drawable.snow_showers_day).into(weatherImg)
                 Picasso.get().load(R.drawable.snow_bg).into(backIV)
             }
             "snow-showers-night" -> {
-                Picasso.get().load(R.drawable.snow).into(weatherImg)
+                Picasso.get().load(R.drawable.snow_showers_night).into(weatherImg)
                 Picasso.get().load(R.drawable.snow_bg).into(backIV)
             }
             "thunder-rain" -> {
@@ -287,10 +316,10 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
             }
             "thunder-showers-day" -> {
                 Picasso.get().load(R.drawable.thunder_showers_day).into(weatherImg)
-                Picasso.get().load(R.drawable.thunder_showers_day_bg).into(backIV)
+                Picasso.get().load(R.drawable.thunder_rain_bg).into(backIV)
             }
             "thunder-showers-night" -> {
-                Picasso.get().load(R.drawable.thunder_rain).into(weatherImg)
+                Picasso.get().load(R.drawable.thunder_showers_night).into(weatherImg)
                 backIV?.setImageResource(R.drawable.thunder_rain_bg)
             }
             "rain" -> {
@@ -298,11 +327,11 @@ open class Today(var arrList: ArrayList<WeatherRV>? = null, private var weatherR
                 backIV?.setImageResource(R.drawable.rain_bg)
             }
             "showers-day" -> {
-                Picasso.get().load(R.drawable.thunder_showers_day).into(weatherImg)
+                Picasso.get().load(R.drawable.showers_day).into(weatherImg)
                 backIV?.setImageResource(R.drawable.thunder_showers_day_bg)
             }
             "showers-night" -> {
-                Picasso.get().load(R.drawable.rain).into(weatherImg)
+                Picasso.get().load(R.drawable.showers_night).into(weatherImg)
                 backIV?.setImageResource(R.drawable.rain_bg)
             }
             "fog" -> {

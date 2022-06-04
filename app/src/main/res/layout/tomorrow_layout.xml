@@ -1,15 +1,525 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <TextView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:visibility="visible"
+    android:id="@+id/tomorrowRL"
+    android:background="@drawable/rain_bg">
+
+    <ProgressBar
+        android:id="@+id/loadingPB2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tomorrow"
-        android:layout_centerInParent="true"
-        android:textSize="18sp">
+        android:visibility="visible"
+        android:layout_centerInParent="true">
+
+    </ProgressBar>
+
+    <ImageView
+        android:id="@+id/backIV2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cloudy_bg">
+
+    </ImageView>
+
+
+    <!--android:layout_below="@id/currentCity"-->
+
+    <TextView
+        android:id="@+id/currentTemp2"
+        android:layout_width="180dp"
+        android:layout_height="160dp"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="100°F"
+        android:textColor="@color/white"
+        android:textSize="45sp">
 
     </TextView>
 
+
+    <TextView
+        android:id="@+id/highTemp2"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/currentTemp2"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-50dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="↑100°F"
+        android:textColor="@color/white">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/lowTemp2"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/currentTemp2"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="-50dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="↓50°F"
+        android:textColor="@color/white">
+
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/weatherImg2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="110dp"
+        android:layout_toEndOf="@id/currentTemp2"
+        android:src="@mipmap/ic_launcher">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_above="@id/dateTime2"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="-5dp"
+        android:fontFamily="@font/rubik"
+        android:text="Dallas, TX, United States"
+        android:textColor="@color/black"
+        android:textSize="20sp">
+
+    </TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/location"
+        android:layout_marginTop="-5dp"
+        android:background="@android:color/black"/>
+
+
+    <TextView
+        android:id="@+id/dateTime2"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_above="@id/currentTemp2"
+        android:layout_marginStart="-5dp"
+        android:layout_marginBottom="-130dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:text="Date, Time"
+        android:textColor="@color/black">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/feelsLike2"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/currentTemp2"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="-10dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:text="Feels like temp"
+        android:textColor="@color/white">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/description2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/feelsLike2"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:text="Weather Description"
+        android:textColor="@color/white">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/desc2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/weatherImg2"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="-25dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:text="Weather"
+        android:textColor="@color/white"
+        android:textSize="15sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/hourly2"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/currentDetails2"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/rubik"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Hourly Forecast"
+        android:textColor="@color/white">
+
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weatherRV2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hourly2"
+        android:layout_marginTop="-10dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/currentDetails2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description2"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_main_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/sunriseRL2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/sunrise">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/sunriseVal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/white"
+                        android:textSize="15dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sunrise2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="Sunrise"
+                        android:textColor="@color/white"
+                        android:textSize="18dp">
+
+                    </TextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sunsetRL2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/sunset">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/sunsetVal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/white"
+                        android:textSize="15dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sunset2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="Sunset"
+                        android:textColor="@color/white"
+                        android:textSize="18dp">
+
+                    </TextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/precipitationRL2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/precipitation">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/precipitationVal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/white"
+                        android:textSize="15dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/precipitation2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="Precipitation"
+                        android:textColor="@color/white"
+                        android:textSize="18dp">
+
+                    </TextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll2_main_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/humidityRL2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/humidity">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/humidityVal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/white"
+                        android:textSize="15dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/humidity2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="Humidity"
+                        android:textColor="@color/white"
+                        android:textSize="18dp">
+
+                    </TextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/windSpeedRL2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/windspeed">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/windSpeedVal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/white"
+                        android:textSize="15dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/windSpeed2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="Wind Speed"
+                        android:textColor="@color/white"
+                        android:textSize="18dp">
+
+                    </TextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/pressureRL2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="0dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/pressure">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/pressureVal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="100"
+                        android:textColor="@color/white"
+                        android:textSize="15dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/pressure2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="Pressure"
+                        android:textColor="@color/white"
+                        android:textSize="18dp">
+
+                    </TextView>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 </RelativeLayout>
+

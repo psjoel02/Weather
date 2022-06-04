@@ -27,23 +27,12 @@ class MainActivity : AppCompatActivity() {
         val tabs: TabLayout = binding.tabs
         tabs.setupWithViewPager(viewPager)
         viewPager.offscreenPageLimit = 2
+
+
         /*val fab: FloatingActionButton = binding.fab
         fab.setOnClickListener { view ->
 
         }*/
-
-        /* Inflate your custom layout
-        val actionBarLayout = layoutInflater.inflate(R.layout.action_bar, null) as ViewGroup
-
-        // Set up your ActionBar
-        val actionBar: ActionBar = supportActionBar!!
-        actionBar.setDisplayShowHomeEnabled(false)
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.setDisplayShowCustomEnabled(true)
-        actionBar.customView = actionBarLayout
-        // you can create listener over the EditText
-        var actionBarText: EditText = findViewById(R.id.action_bar_text)
-        //actionBarText.setText("hello world")*/
 
     }
 
