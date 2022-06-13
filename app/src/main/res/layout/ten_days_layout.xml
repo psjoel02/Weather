@@ -6,8 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:visibility="visible"
-    android:id="@+id/seven_days_RL"
+    android:id="@+id/ten_days_RL"
     android:background="#C7C0BE">
+
+    <ImageView
+        android:id="@+id/backIV3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cloudy_bg">
+
+    </ImageView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weatherRV3"

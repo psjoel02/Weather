@@ -1,4 +1,4 @@
-package com.example.weather.ui.main
+package com.example.weather
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -10,11 +10,11 @@ import com.example.weather.Tomorrow
 import com.example.weather.TenDays
 
 
-
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
     R.string.tab_text_2,
     R.string.tab_text_3
+    //set titles for each tab
 )
 
 /**
@@ -45,12 +45,12 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
 
     override fun getPageTitle(position: Int): CharSequence? {
         return context.resources.getString(TAB_TITLES[position])
+        //when switching between tabs, get title using TAB_TITLES array
     }
 
     override fun getCount(): Int {
         // Show 3 total pages.
         return 3
     }
-
 
 }

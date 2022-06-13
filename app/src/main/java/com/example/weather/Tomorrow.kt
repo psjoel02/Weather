@@ -30,12 +30,13 @@ class Tomorrow(var arrList2: ArrayList<WeatherRV>? = null, private var weatherRV
     private var tomorrowRL: RelativeLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        //set layout to tomorrow_layout
         return inflater.inflate(R.layout.tomorrow_layout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //fullscreen
+
         weatherImg = view.findViewById(R.id.weatherImg2)
         highTemp = view.findViewById(R.id.highTemp2)
         lowTemp = view.findViewById(R.id.lowTemp2)
@@ -51,67 +52,68 @@ class Tomorrow(var arrList2: ArrayList<WeatherRV>? = null, private var weatherRV
         currentTemp = view.findViewById(R.id.currentTemp2)
         weather = view.findViewById(R.id.desc2)
         backIV = view.findViewById(R.id.backIV2)
-        loadPB = view.findViewById(R.id.loadingPB2)
         tomorrowRL = view.findViewById(R.id.tomorrowRL)
         location = view.findViewById(R.id.location)
 
         weatherRV2 = requireActivity().findViewById(R.id.weatherRV2)
         weatherRV2?.setHasFixedSize(true)
         arrList2 = arrayListOf<WeatherRV>()
+        //create arraylist of type WeatherRV
         weatherRV2?.adapter = RecyclerAdapter(arrList2!!)
 
-        // Use the Kotlin extension in the fragment-ktx artifact
         setFragmentResultListener("TomKey") { requestKey, bundle ->
-            // We use a String here, but any type that can be put in a Bundle is supported
             val jsonData = bundle.getString("key")
             if (jsonData != null) {
-                //Log.d("json data sent", jsonData)
                 val json = JSONObject(jsonData)
                 location?.text = json.getString("resolvedAddress")
                 getWeatherInfo(json)
-
                 tomorrowRL?.visibility = View.VISIBLE
-                loadPB?.visibility = View.INVISIBLE
             }
-
+            //use setFragmentResultListener to obtain json data from Today fragment
         }
 
     }
 
     private fun getWeatherInfo(json: JSONObject){
 
+        //clear past data from recyclerview
         arrList2?.clear()
+
         val tomorrowf = SimpleDateFormat("EEEE, MMM d")
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.DAY_OF_YEAR, 1)
         val tomorrowDate = tomorrowf.format(calendar.time)
+        //set date on tab as tomorrow's date
 
         val forecastDaily: JSONArray = json.getJSONArray("days")
         val forecast1: JSONObject = forecastDaily.getJSONObject(1)
-        highTemp?.text = "↑".plus(forecast1.getString("tempmax")).plus("°F")
-        lowTemp?.text = "↓".plus(forecast1.getString("tempmin")).plus("°F")
         val feels: String = forecast1.getString("feelslike")
         val icon: String = forecast1.getString("icon")
-        Log.d("icon:", icon)
-        var pressure: Double = forecast1.getString("pressure").toDouble()
-        pressure /= 33.864
-
         val rawRise: String = forecast1.getString("sunrise")
         val rawSet: String = forecast1.getString("sunset")
         val format: DateFormat = SimpleDateFormat("hh:mm:ss")
+        val df = DecimalFormat("####0.0")
+        val forecastHourly: JSONArray = forecast1.getJSONArray("hours")
+        var pressure: Double = forecast1.getString("pressure").toDouble()
+        pressure /= 33.864
+        //convert pressure to inHg
+
         try {
             val date: Date = format.parse(rawRise)!!
             val date2: Date = format.parse(rawSet)!!
             val format2 = SimpleDateFormat("h:mm a")
             sunriseVal?.text = format2.format(date)
             sunsetVal?.text = format2.format(date2)
+            //convert sunrise and sunset times into specified format
         } catch (e: ParseException) {
             e.printStackTrace()
         }
 
         loadImg(icon)
         //based on different times of day, load different background image into backIV
-        //add alerts using response.getJSONObject("alerts").getString("event, headline, and description")
+
+        highTemp?.text = "↑".plus(forecast1.getString("tempmax")).plus("°F")
+        lowTemp?.text = "↓".plus(forecast1.getString("tempmin")).plus("°F")
         weather?.text = forecast1.getString("conditions")
         currentTemp?.text = forecast1.getString("temp").plus("°F")
         feelsTemp?.text = "Feels like ".plus(feels).plus("°F")
@@ -120,10 +122,9 @@ class Tomorrow(var arrList2: ArrayList<WeatherRV>? = null, private var weatherRV
         precipitationVal?.text = forecast1.getString("precip").plus(" in")
         humidityVal?.text = forecast1.getString("humidity").plus("%")
         windSpeedVal?.text = forecast1.getString("windspeed").plus(" mph")
-        val df = DecimalFormat("####0.0")
         pressureVal?.text = df.format(pressure).toString().plus(" inHg")
+        //set view values based on current conditions
 
-        val forecastHourly: JSONArray = forecast1.getJSONArray("hours")
         loadArr(forecastHourly)
 
     }
@@ -136,7 +137,6 @@ class Tomorrow(var arrList2: ArrayList<WeatherRV>? = null, private var weatherRV
             val hrPrecip: String = currentObj.getString("precipprob").plus("%")
             val hrWind: String = currentObj.getString("windspeed").plus("mph")
             val converted: String = hrIcon.replace('-', '_')
-            //Log.d("converted:", converted)
             var wRV = WeatherRV(hrTemp, R.drawable.cloudy, hrPrecip, hrWind)
             try{
                 wRV = WeatherRV(hrTemp, resources.getIdentifier(converted, "drawable", requireActivity().packageName), hrPrecip, hrWind)
@@ -144,32 +144,33 @@ class Tomorrow(var arrList2: ArrayList<WeatherRV>? = null, private var weatherRV
                 Log.d("Exception", e.toString())
             }
             arrList2?.add(wRV)
-            weatherRV2?.adapter?.notifyDataSetChanged()
         }
+        weatherRV2?.adapter?.notifyDataSetChanged()
     }
 
 
     private fun loadImg(icon: String){
+        //hide loading background and replace weather icon and background with icon according to API
         when(icon){
             "snow" ->  {
                 Picasso.get().load(R.drawable.snow).into(weatherImg)
-                Picasso.get().load(R.drawable.snow_bg).into(backIV)
+                backIV?.setImageResource(R.drawable.snow_bg)
             }
             "snow-showers-day" -> {
                 Picasso.get().load(R.drawable.snow_showers_day).into(weatherImg)
-                Picasso.get().load(R.drawable.snow_bg).into(backIV)
+                backIV?.setImageResource(R.drawable.snow_bg)
             }
             "snow-showers-night" -> {
                 Picasso.get().load(R.drawable.snow_showers_night).into(weatherImg)
-                Picasso.get().load(R.drawable.snow_bg).into(backIV)
+                backIV?.setImageResource(R.drawable.snow_bg)
             }
             "thunder-rain" -> {
                 Picasso.get().load(R.drawable.thunder_rain).into(weatherImg)
-                Picasso.get().load(R.drawable.thunder_rain_bg).into(backIV)
+                backIV?.setImageResource(R.drawable.thunder_rain_bg)
             }
             "thunder-showers-day" -> {
                 Picasso.get().load(R.drawable.thunder_showers_day).into(weatherImg)
-                Picasso.get().load(R.drawable.thunder_rain_bg).into(backIV)
+                backIV?.setImageResource(R.drawable.thunder_rain_bg)
             }
             "thunder-showers-night" -> {
                 Picasso.get().load(R.drawable.thunder_showers_night).into(weatherImg)
@@ -217,11 +218,6 @@ class Tomorrow(var arrList2: ArrayList<WeatherRV>? = null, private var weatherRV
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
 
 
 }

@@ -8,22 +8,24 @@
     tools:context=".MainActivity"
     android:visibility="visible"
     android:id="@+id/todayRL">
-
     <ProgressBar
         android:id="@+id/loadingPB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:visibility="visible"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:elevation="10dp">
 
     </ProgressBar>
+
 
     <ImageView
         android:id="@+id/backIV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/cloudy_bg">
+        android:src="@color/black"
+        android:elevation="5dp">
 
     </ImageView>
 
@@ -82,10 +84,9 @@
 
     <TextView
         android:id="@+id/currentTemp"
-        android:layout_width="180dp"
+        android:layout_width="200dp"
         android:layout_height="160dp"
-
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="-5dp"
         android:layout_marginTop="70dp"
         android:fontFamily="@font/rubik"
         android:gravity="center"
@@ -99,7 +100,7 @@
 
     <TextView
         android:id="@+id/highTemp"
-        android:layout_width="70dp"
+        android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_below="@id/currentTemp"
         android:layout_marginStart="20dp"
@@ -114,10 +115,10 @@
 
     <TextView
         android:id="@+id/lowTemp"
-        android:layout_width="70dp"
+        android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_below="@id/currentTemp"
-        android:layout_marginStart="105dp"
+        android:layout_marginStart="95dp"
         android:layout_marginTop="-50dp"
         android:fontFamily="@font/rubik"
         android:gravity="center"
@@ -133,7 +134,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="90dp"
+        android:layout_marginStart="85dp"
         android:layout_marginTop="110dp"
         android:layout_toEndOf="@id/currentTemp"
         android:src="@mipmap/ic_launcher">
@@ -156,10 +157,10 @@
 
     <TextView
         android:id="@+id/feelsLike"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_below="@id/currentTemp"
-        android:layout_marginStart="35dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="-10dp"
         android:fontFamily="@font/rubik"
         android:gravity="center"
@@ -200,7 +201,7 @@
         android:id="@+id/hourly"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
+        android:layout_marginStart="120dp"
         android:layout_marginTop="20dp"
         android:layout_below="@id/currentDetails"
         android:fontFamily="@font/rubik"
@@ -269,7 +270,7 @@
                         android:gravity="center"
                         android:text="100"
                         android:textColor="@color/white"
-                        android:textSize="15dp">
+                        android:textSize="15sp">
 
                     </TextView>
 
@@ -281,7 +282,7 @@
                         android:gravity="center"
                         android:text="Sunrise"
                         android:textColor="@color/white"
-                        android:textSize="18dp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -318,7 +319,7 @@
                         android:gravity="center"
                         android:text="100"
                         android:textColor="@color/white"
-                        android:textSize="15dp">
+                        android:textSize="15sp">
 
                     </TextView>
 
@@ -330,7 +331,7 @@
                         android:gravity="center"
                         android:text="Sunset"
                         android:textColor="@color/white"
-                        android:textSize="18dp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -367,7 +368,7 @@
                         android:gravity="center"
                         android:text="100"
                         android:textColor="@color/white"
-                        android:textSize="15dp">
+                        android:textSize="15sp">
 
                     </TextView>
 
@@ -379,7 +380,7 @@
                         android:gravity="center"
                         android:text="Precipitation"
                         android:textColor="@color/white"
-                        android:textSize="18dp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -426,7 +427,7 @@
                         android:gravity="center"
                         android:text="100"
                         android:textColor="@color/white"
-                        android:textSize="15dp">
+                        android:textSize="15sp">
 
                     </TextView>
 
@@ -438,7 +439,7 @@
                         android:gravity="center"
                         android:text="Humidity"
                         android:textColor="@color/white"
-                        android:textSize="18dp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -475,7 +476,7 @@
                         android:gravity="center"
                         android:text="100"
                         android:textColor="@color/white"
-                        android:textSize="15dp">
+                        android:textSize="15sp">
 
                     </TextView>
 
@@ -487,7 +488,7 @@
                         android:gravity="center"
                         android:text="Wind Speed"
                         android:textColor="@color/white"
-                        android:textSize="18dp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -524,7 +525,7 @@
                         android:gravity="center"
                         android:text="100"
                         android:textColor="@color/white"
-                        android:textSize="15dp">
+                        android:textSize="15sp">
 
                     </TextView>
 
@@ -536,7 +537,7 @@
                         android:gravity="center"
                         android:text="Pressure"
                         android:textColor="@color/white"
-                        android:textSize="18dp">
+                        android:textSize="18sp">
 
                     </TextView>
 
@@ -546,7 +547,6 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </RelativeLayout>
 
